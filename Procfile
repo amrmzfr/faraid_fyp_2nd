@@ -1,1 +1,1 @@
-web gunicorn faraid_verification.wsgi:application --log-file -
+web gunicorn faraid_fyp_2nd.wsgi:application --log-file -
