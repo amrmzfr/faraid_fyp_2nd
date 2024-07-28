@@ -10,6 +10,11 @@ from django.conf import settings
 from pathlib import Path
 import django_heroku
 import dj_database_url
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'faraird_fyp_2nd.settings')
+
+application = get_wsgi_application()
 
 env = environ.Env(
     # set casting, default value
