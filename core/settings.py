@@ -3,28 +3,26 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-import os, environ
-import django_heroku
-import dj_database_url
-from django.conf import settings
+import os
 from pathlib import Path
+import environ
 import django_heroku
 import dj_database_url
 from django.core.wsgi import get_wsgi_application
 
+# Setting the default Django settings module for the 'django' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'faraird_fyp_2nd.settings')
 
 application = get_wsgi_application()
 
+# Initialize environment variables
 env = environ.Env(
-    # set casting, default value
     DEBUG=(bool, True)
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+CORE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -35,15 +33,11 @@ SECRET_KEY = env('SECRET_KEY', default='S#perS3crEt_007')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-# Assets Management
-ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
-
-# load production server from .env
-ALLOWED_HOSTS        = ['localhost', 'localhost:85', '127.0.0.1',               env('SERVER', default='127.0.0.1') ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+# Allowed Hosts and CSRF trusted origins
+ALLOWED_HOSTS = ['localhost', 'localhost:85', '127.0.0.1', env('SERVER', default='127.0.0.1')]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1')]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,9 +84,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -105,8 +97,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -123,41 +113,25 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-#############################################################
-# SRC: https://devcenter.heroku.com/articles/django-assets
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-django_heroku.settings(locals())
-
-# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
 )
 
-#############################################################
-#############################################################
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
-# pdf
-
+# Crispy forms configuration
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Choose your preferred template pack
 
+# API Keys
 DROPBOX_SIGN_API_KEY = '2e684460fda4a69c81b191865a382ee73056c057b8c1b77df40778dca5e0ba9d'
-
-GMAIL_API_KEY        = 'AIzaSyCibyLO2-cmjFcI0ZVQFNZP568_8vGjvDw'
-
+GMAIL_API_KEY = 'AIzaSyCibyLO2-cmjFcI0ZVQFNZP568_8vGjvDw'
