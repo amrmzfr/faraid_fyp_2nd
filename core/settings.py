@@ -11,7 +11,7 @@ import dj_database_url
 from django.core.wsgi import get_wsgi_application
 
 # Setting the default Django settings module for the 'django' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'faraird_fyp_2nd.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'faraid_fyp_2nd.settings')
 
 application = get_wsgi_application()
 
